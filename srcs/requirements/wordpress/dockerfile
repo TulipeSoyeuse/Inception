@@ -1,0 +1,30 @@
+FROM debian:bullseye
+RUN apt-get update && apt-get upgrade
+RUN apt-get -y install curl php php-fpm mariadb-client php-mysql
+RUN curl https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar > wp-cli.phar
+RUN chmod +x wp-cli.phar
+RUN mv wp-cli.phar /usr/local/bin/wp
+
+WORKDIR /var/www/inception.site
+
+RUN curl -LO https://wordpress.org/latest.tar.gz
+RUN tar -xf latest.tar.gz
+RUN mv wordpress/* .
+RUN rm -rf wordpress/ latest.tar.gz
+RUN chown -R www-data: /var/www
+RUN chmod -R 777 . 
+
+COPY tools/www.conf /etc/php/7.4/fpm/pool.d/
+COPY tools/wordpress.sh /wordpress.sh
+COPY tools/php-fmp.conf /etc/php/7.4/fpm/php-fpm.conf
+
+RUN chmod +x /wordpress.sh
+RUN mkdir -p /run/php/
+
+ENTRYPOINT [ "/wordpress.sh" ]
+
+RUN ln -sf /dev/stdout /var/www/inception.site
+
+EXPOSE 9000
+
+CMD ["/usr/sbin/php-fpm7.4","-F"] 
