@@ -1,6 +1,6 @@
 FROM debian:bullseye
 
-RUN apt-get update && apt-get upgrade
+RUN apt-get update && apt-get upgrade -y
 RUN apt-get -y install nginx openssl
 
 #COPY tools/sites-availables.conf etc/nginx/sites-available/inception_site_conf
