@@ -7,7 +7,7 @@ endif
 build:
 	docker compose -f srcs/docker-compose.yml build
 
-up: 
+up:
 ifeq ($(B), yes)
 	docker compose -f srcs/docker-compose.yml up $(d) --build
 else
@@ -18,7 +18,7 @@ down:
 	docker compose -f srcs/docker-compose.yml down
 
 clean: down
-	docker volume prune --all	
+	docker volume prune --volumes --all
 
 fclean: clean
-	docker system prune --all
+	docker system prune --volumes --all

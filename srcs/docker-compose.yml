@@ -2,8 +2,9 @@ services:
 
   mariadb:
     container_name: mariadb
+    image: mariadb.image:last
     build: requirements/mariadb/
-    volumes: 
+    volumes:
       - db_vol:/var/lib/mysql
     restart: always
     networks:
@@ -13,7 +14,8 @@ services:
 
   nginx:
     container_name: nginx
-    build: requirements/nginx/ 
+    image: nginx.image:last
+    build: requirements/nginx/
     ports:
       - 443:443
     volumes:
@@ -24,6 +26,7 @@ services:
 
   wordpress:
     container_name: wordpress
+    image: wordpress.image:last
     build: requirements/wordpress/
     depends_on:
       - mariadb
