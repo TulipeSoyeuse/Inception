@@ -1,4 +1,5 @@
 #!/bin/bash
+
 if [ -f ./wp-config.php ]
 then
 	echo "wp-config already exist"
@@ -14,6 +15,7 @@ else
     cat xx00 salts xx02 > wp-config.php
 	rm salts xx00 xx01 xx02
     sed -i "s/define( 'WP_DEBUG', true );/define( 'WP_DEBUG_LOG', true );/g" wp-config.php
+    sed -i "/That's all, stop editing/i define('WP_HOME','https://rdupeux.42.fr');\ndefine('WP_SITEURL','https://rdupeux.42.fr');" wp-config.php
 
 fi
 

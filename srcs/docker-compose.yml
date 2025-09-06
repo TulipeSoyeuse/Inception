@@ -16,10 +16,10 @@ services:
     container_name: nginx
     image: nginx.image:last
     build: requirements/nginx/
-    ports:
-      - 443:443
     volumes:
       - wordpress_vol:/var/www/inception.site
+    ports:
+      - 443:443
     restart: always
     networks:
       - inception
@@ -43,4 +43,14 @@ networks:
 
 volumes:
   db_vol:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/rdupeux/data/mariadb
   wordpress_vol:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/rdupeux/data/wordpress
