@@ -18,7 +18,8 @@ down:
 	docker compose -f srcs/docker-compose.yml down
 
 clean: down
-	docker volume prune --all
+	rm -rf /home/rdupeux/data/wordpress/*
+	rm -rf /home/rdupeux/data/mariadb/*
 
 fclean: clean
 	docker system prune --all
