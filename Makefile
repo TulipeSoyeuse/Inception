@@ -22,4 +22,4 @@ clean: down
 	rm -rf /home/rdupeux/data/mariadb/*
 
 fclean: clean
-	docker system prune --all
+	docker system prune --all --force

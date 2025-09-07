@@ -14,8 +14,10 @@ else
                 FLUSH PRIVILEGES;"
 
     mariadb $db_name < /setup/wordpress.sql
-    echo "UPDATE wp_users SET user_pass = MD5('$WP_PWD') WHERE user_login = 'rdupeux';" | mariadb $db_name
-    echo "change password to $WP_PWD"
+    echo "UPDATE wp_users SET user_pass = MD5('$WP_USER1_PWD') WHERE user_login = 'rdupeux';" | mariadb $db_name
+    echo "UPDATE wp_USERS SET user_pass = MD5('$WP_USER2_PWD') WHERE user_login = '2ndUser';" | mariadb $db_name
+    echo "change password to $WP_USER1_PWD"
+    echo "change user2 password to $WP_USER2_PWD"
 fi
 
 mysqladmin shutdown
